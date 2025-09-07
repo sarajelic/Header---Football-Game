@@ -8,18 +8,68 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container text-center mt-4">
-        <h1>Header</h1>
-        <div class="dice-section my-3">
-            <button id="rollBtn" class="btn btn-primary">Roll Dice</button>
-            <p id="diceResult"></p>
+    <div id="start-overlay">
+        <div class="start-content">
+            <h1>Header Football Game</h1>
+            <button id="start-btn" class="btn btn-primary">Start Game</button>
         </div>
-        <div class="board d-flex flex-wrap justify-content-center" id="board"></div>
-        <div class="commentary mt-3" id="commentary"></div>
-        <div class="choices mt-3" id="choices"></div>
     </div>
+    <div class="pitch-bg"></div>
+    <div id="pitch" class="pitch">
+    <div class="pitch-outline"></div>
+    <div class="center-line"></div>
+    <div class="center-circle"></div>
+    <div class="penalty-box left"></div>
+    <div class="penalty-box right"></div>
+    <div class="goal-area left"></div>
+    <div class="goal-area right"></div>
+    <div class="penalty-spot left"></div>
+    <div class="penalty-spot right"></div>
+    <!-- Football element -->
+    <div id="football1"></div>
+    <div id="football2"></div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+        <!-- Team 1 (Left) 4-3-3 Formation -->
+    <!-- SVG overlay for dashed lines between players -->
+    <!-- SVG overlay for dashed lines removed -->
+    <!-- ...existing code for players... -->
+    <!-- ...existing code for players... -->
+    <div class="player team1 goalkeeper" style="left: 4vw; top: 50vh;">1</div>
+    <div class="player team1 defender" style="left: 10vw; top: 15vh;">2</div>
+    <div class="player team1 defender" style="left: 18vw; top: 35vh;">3</div>
+    <div class="player team1 defender" style="left: 10vw; top: 85vh;">4</div>
+    <div class="player team1 defender" style="left: 18vw; top: 60vh;">5</div>
+    <div class="player team1 midfielder" style="left: 30vw; top: 30vh;">6</div>
+    <div class="player team1 midfielder" style="left: 38vw; top: 55vh;">7</div>
+    <div class="player team1 midfielder" style="left: 30vw; top: 70vh;">8</div>
+    <div class="player team1 forward" style="left: 65vw; top: 20vh;">9</div>
+    <div class="player team1 forward" style="left: 80vw; top: 45vh;">10</div>
+    <div class="player team1 forward" style="left: 65vw; top: 80vh;">11</div>
+
+    <div class="player team2 goalkeeper" style="right: 4vw; top: 50vh;">1</div>
+    <div class="player team2 defender" style="right: 10vw; top: 25vh;">2</div>
+    <div class="player team2 defender" style="right: 18vw; top: 65vh;">3</div>
+    <div class="player team2 defender" style="right: 10vw; top: 75vh;">4</div>
+    <div class="player team2 defender" style="right: 18vw; top: 35vh;">5</div>
+    <div class="player team2 midfielder" style="right: 30vw; top: 40vh;">6</div>
+    <div class="player team2 midfielder" style="right: 38vw; top: 45vh;">7</div>
+    <div class="player team2 midfielder" style="right: 30vw; top: 60vh;">8</div>
+    <div class="player team2 forward" style="right: 65vw; top: 80vh;">9</div>
+    <div class="player team2 forward" style="right: 80vw; top: 55vh;">10</div>
+    <div class="player team2 forward" style="right: 65vw; top: 20vh;">11</div>
+    </div>
+        <!-- Multiple choice modal -->
+        <div id="question-modal">
+            <div class="modal-content">
+                <h4 id="question-title">Question</h4>
+                <form id="question-form">
+                    <div id="question-options"></div>
+                    <button type="submit" style="margin-top:1em;" class="btn btn-primary">Submit</button>
+                </form>
+                <button id="close-modal" class="btn btn-secondary" style="margin-top:1em;">Close</button>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="script.js"></script>
+
 
