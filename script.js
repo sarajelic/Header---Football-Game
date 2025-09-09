@@ -101,7 +101,9 @@ $(document).ready(function() {
 		const answer = $("#question-form").data("answer");
 		const team = $("#question-form").data("team");
 		if (parseInt(selected) === answer) {
-			alert("Correct!");
+			// Fun commentator phrase for correct answer
+			var phrase = getCommentatorPhrase(team, true);
+			showAnnouncer(phrase);
 			// Mark player as answered
 			var playerSelector = team === 1 ? '.player.team1' : '.player.team2';
 			$(playerSelector).each(function() {
@@ -118,7 +120,9 @@ $(document).ready(function() {
 			updatePlayerStates();
 			$("#question-modal").hide();
 		} else {
-			alert("Incorrect. Turn passes to the other team!");
+			// Fun commentator phrase for incorrect answer
+			var phrase = getCommentatorPhrase(team, false);
+			showAnnouncer(phrase);
 			// Do not unlock next player, just switch turn
 			activeTeam = (activeTeam === 1) ? 2 : 1;
 			updatePlayerStates();
@@ -228,3 +232,41 @@ window.addEventListener('DOMContentLoaded', drawAllLines);
 window.addEventListener('resize', drawAllLines);
 
 // ...existing code for pitch and player rendering only...
+
+function showAnnouncer(msg) {
+	$("#announcer-bar").stop(true, true).text(msg).fadeIn(200);
+	setTimeout(function() {
+		$("#announcer-bar").fadeOut(400);
+	}, 2200);
+}
+
+function getCommentatorPhrase(team, isCorrect) {
+	const correctPhrases = team === 1 ? [
+		"Red team strings together a beautiful pass!",
+		"Red team advances with style!",
+		"Red team keeps the momentum going!",
+		"Red team moves the ball forward brilliantly!",
+		"Red team is on fire! Another successful pass!"
+	] : [
+		"Blue team keeps possession and pushes ahead!",
+		"Blue team with a slick pass forward!",
+		"Blue team advances with confidence!",
+		"Blue team is unstoppable! Another great move!",
+		"Blue team dazzles the crowd with that pass!"
+	];
+	const incorrectPhrases = team === 1 ? [
+		"Red team loses possession! Blue team takes over!",
+		"Red team fumbles the ball. Blue team now in control!",
+		"Red team misses the mark. Blue team gets a chance!",
+		"Red team can't keep it—Blue team snatches the ball!",
+		"Red team loses the ball, Blue team counterattacks!"
+	] : [
+		"Blue team loses possession! Red team takes over!",
+		"Blue team fumbles the ball. Red team now in control!",
+		"Blue team misses the mark. Red team gets a chance!",
+		"Blue team can't keep it—Red team snatches the ball!",
+		"Blue team loses the ball, Red team counterattacks!"
+	];
+	const arr = isCorrect ? correctPhrases : incorrectPhrases;
+	return arr[Math.floor(Math.random() * arr.length)];
+}
