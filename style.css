@@ -304,3 +304,29 @@ html, body {
     border-color: #228B22 !important;
     color: #fff !important;
 }
+
+#end-game-overlay {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+#winner-message {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2em;
+    font-size: 1.3em;
+    color: #fff;
+    font-weight: 600;
+}
+#restart-btn {
+    display: block;
+    margin: 0 auto;
+    font-size: 1.1em;
+    padding: 0.7em 2em;
+    min-width: 180px;
+    max-width: 220px;
+    text-align: center;
+    border-radius: 0.5em;
+}

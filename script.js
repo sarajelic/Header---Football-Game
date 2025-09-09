@@ -101,23 +101,24 @@ $(document).ready(function() {
 		const answer = $("#question-form").data("answer");
 		const team = $("#question-form").data("team");
 		if (parseInt(selected) === answer) {
-			// Fun commentator phrase for correct answer
 			var phrase = getCommentatorPhrase(team, true);
 			showAnnouncer(phrase);
-			// Mark player as answered
 			var playerSelector = team === 1 ? '.player.team1' : '.player.team2';
 			$(playerSelector).each(function() {
 				if (parseInt($(this).text()) === (team === 1 ? currentUnlocked1 : currentUnlocked2)) {
 					$(this).addClass('answered');
 				}
 			});
-			// Unlock next player for the correct team, same team continues
-			if (activeTeam === 1) {
-				currentUnlocked1++;
+			if ((activeTeam === 1 && currentUnlocked1 === 11) || (activeTeam === 2 && currentUnlocked2 === 11)) {
+				triggerGoalCelebration(team);
 			} else {
-				currentUnlocked2++;
+				if (activeTeam === 1) {
+					currentUnlocked1++;
+				} else {
+					currentUnlocked2++;
+				}
+				updatePlayerStates();
 			}
-			updatePlayerStates();
 			$("#question-modal").hide();
 		} else {
 			// Fun commentator phrase for incorrect answer
@@ -270,3 +271,71 @@ function getCommentatorPhrase(team, isCorrect) {
 	const arr = isCorrect ? correctPhrases : incorrectPhrases;
 	return arr[Math.floor(Math.random() * arr.length)];
 }
+
+function triggerGoalCelebration(team) {
+	// Show confetti and goal text, then show end-game overlay with restart button
+	launchConfetti();
+	$("#goal-text").show().css({ left: "-50vw" });
+	$("#confetti-canvas").show();
+	$("#goal-text").animate({ left: "20vw" }, 1200, "swing", function() {
+		setTimeout(function() {
+			$("#goal-text").animate({ left: "120vw" }, 1200, "swing", function() {
+				$("#goal-text").hide();
+				$("#confetti-canvas").hide();
+				$("#end-game-overlay").css('display','flex'); // Show overlay only after celebration
+				var winner = team === 1 ? "Red team scores the winning goal!" : "Blue team scores the winning goal!";
+				$("#winner-message").text(winner);
+			});
+		}, 1200);
+	});
+}
+
+function launchConfetti() {
+	const canvas = document.getElementById('confetti-canvas');
+	const ctx = canvas.getContext('2d');
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	let confetti = [];
+	for (let i = 0; i < 120; i++) {
+		confetti.push({
+			x: Math.random() * canvas.width,
+			y: Math.random() * -canvas.height,
+			r: Math.random() * 8 + 4,
+			d: Math.random() * 2 + 1,
+			color: `hsl(${Math.random()*360},80%,60%)`,
+			tilt: Math.random() * 10 - 5
+		});
+	}
+	let frame = 0;
+	function draw() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		confetti.forEach(c => {
+			ctx.beginPath();
+			ctx.ellipse(c.x, c.y, c.r, c.r/2, c.tilt, 0, 2*Math.PI);
+			ctx.fillStyle = c.color;
+			ctx.fill();
+		});
+		update();
+		frame++;
+		if (frame < 180) requestAnimationFrame(draw);
+	}
+	function update() {
+		confetti.forEach(c => {
+			c.y += c.d + Math.random()*2;
+			c.x += Math.sin(frame/10 + c.tilt) * 2;
+			if (c.y > canvas.height) c.y = -10;
+		});
+	}
+	draw();
+}
+
+$(document).on("click", "#restart-btn", function() {
+	$("#end-game-overlay").hide();
+	$("#start-overlay").fadeIn(300);
+	// Reset game state
+	currentUnlocked1 = 1;
+	currentUnlocked2 = 1;
+	activeTeam = 1;
+	$(".player").removeClass("answered disabled");
+	updatePlayerStates();
+});

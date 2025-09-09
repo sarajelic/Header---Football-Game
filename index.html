@@ -82,6 +82,16 @@
         </div>
         <!-- Announcer bar for commentator phrases -->
         <div id="announcer-bar" style="display:none;position:fixed;top:0;left:0;width:100vw;padding:1em 0;text-align:center;font-size:1.2em;font-weight:600;background:#1a3d6d;color:#fff;z-index:1000;box-shadow:0 2px 8px #1a3d6d33;"></div>
+        <!-- Goal celebration overlay -->
+    <div id="end-game-overlay" style="display:none;">
+        <div style="color:#fff;font-size:2em;font-weight:700;margin-bottom:1em;">GOAL!!!</div>
+        <div id="winner-message" style="color:#fff;font-size:1.3em;margin-bottom:2em;"></div>
+        <button id="restart-btn" class="btn btn-success" style="font-size:1.1em;padding:0.7em 2em;">Restart Game</button>
+    </div>
+    <!-- Confetti canvas for celebration -->
+    <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2100;pointer-events:none;display:none;"></canvas>
+    <!-- Moving goal text -->
+    <div id="goal-text" style="display:none;position:fixed;top:40vh;left:-50vw;font-size:3em;font-weight:900;color:#ffd700;text-shadow:2px 2px 12px #b30000,0 0 24px #fff;z-index:2200;white-space:nowrap;">GOOOOOAAALLL!</div>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="script.js"></script>
 </body>
