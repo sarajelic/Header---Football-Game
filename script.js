@@ -102,6 +102,13 @@ $(document).ready(function() {
 		const team = $("#question-form").data("team");
 		if (parseInt(selected) === answer) {
 			alert("Correct!");
+			// Mark player as answered
+			var playerSelector = team === 1 ? '.player.team1' : '.player.team2';
+			$(playerSelector).each(function() {
+				if (parseInt($(this).text()) === (team === 1 ? currentUnlocked1 : currentUnlocked2)) {
+					$(this).addClass('answered');
+				}
+			});
 			// Unlock next player for the correct team, same team continues
 			if (activeTeam === 1) {
 				currentUnlocked1++;

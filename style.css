@@ -80,14 +80,19 @@
     z-index: 2;
 }
 .team1 {
-    border-color: #006400;
-    background: #fff;
-    color: #006400;
+    border-color: #b30000;
+    background: #fff0f0;
+    color: #b30000;
 }
 .team2 {
     border-color: #1e90ff;
     background: #e6f0ff;
     color: #1e90ff;
+}
+.player.answered {
+    filter: brightness(0.7) grayscale(0.2);
+    opacity: 0.85;
+    box-shadow: 0 0 8px 2px #888;
 }
 
 
