@@ -33,7 +33,7 @@
     max-height: 24px;
     background: url('https://upload.wikimedia.org/wikipedia/commons/6/6e/Football_%28soccer_ball%29.svg') center/cover no-repeat, #fff;
     border-radius: 50%;
-    border: 2px solid #222;
+    border: 2px solid #b30000; /* match team1 red */
     z-index: 1;
     pointer-events: none;
 }
